@@ -31,7 +31,7 @@ export default function ResultDisplay({
     <Result>
       {usd > 0 ? (
         <p>
-          {sourceAmount.toFixed(6)} {sourceToken} ={usd.toFixed(2)} USD ={' '}
+          {sourceAmount.toFixed(6)} {sourceToken} = {usd.toFixed(2)} USD ={' '}
           {targetAmount.toFixed(6)} {targetToken}
         </p>
       ) : (

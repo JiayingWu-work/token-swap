@@ -12,6 +12,7 @@
   "dependencies": {
     "@funkit/api-base": "^1.9.12",
     "@tanstack/react-query": "^5.85.5",
+    "axios": "^1.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "styled-components": "^6.1.19"
