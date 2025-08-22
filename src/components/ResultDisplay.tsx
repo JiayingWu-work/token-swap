@@ -20,17 +20,27 @@ export default function ResultDisplay({
   error = false,
 }: ResultDisplayProps) {
   if (loading) {
-    return <Result>Loading prices...</Result>
+    return (
+      <Result>
+        <p>Loading prices...</p>
+      </Result>
+    )
   }
 
   if (error) {
-    return <ErrorText>Failed to fetch price info.</ErrorText>
+    return (
+      <ErrorText>
+        <p>Failed to fetch price info.</p>
+      </ErrorText>
+    )
   }
 
   return (
     <>
-      {usd < 0 || !Number(usd) ? (
-        <ErrorText>Please enter a positive numeric amount</ErrorText>
+      {usd < 0 ? (
+        <ErrorText>
+          <p>Please enter a positive numeric amount</p>
+        </ErrorText>
       ) : (
         <Result>
           {usd > 0 ? (

@@ -73,7 +73,7 @@ export const Select = styled.select`
 export const Result = styled.div`
   margin-top: 24px;
   text-align: center;
-  padding: 12px;
+  padding: 4px;
   background: #f3f4f6;
   border-radius: 12px;
   font-size: 1rem;
@@ -84,7 +84,7 @@ export const Result = styled.div`
 export const ErrorText = styled.div`
   margin-top: 24px;
   text-align: center;
-  padding: 16px;
+  padding: 4px;
   background: #fee2e2;
   border-radius: 12px;
   font-size: 1rem;
