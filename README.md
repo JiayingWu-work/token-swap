@@ -1,69 +1,72 @@
-# React + TypeScript + Vite
+# Token Swap App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simplified Token Swap Explorer built with React + TypeScript + Vite, allowing users to:
 
-Currently, two official plugins are available:
+- Select source and target tokens from a predefined popular list
+- Input a USD amount and get live conversion
+- View the equivalent token amounts based on live API prices
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## Expanding the ESLint configuration
+- Framework: React + TypeScript
+- Build Tool: Vite
+- API:
+  - [@funkit/api-base](https://www.npmjs.com/package/@funkit/api-base): fetch token info and price
+  - [Coingecko Uniswap tokens list](https://tokens.coingecko.com/uniswap/all.json): fetch all tokens
+- State & Data Fetching: @tanstack/react-query
+- Styling: styled-components
+- Testing: Vitest + React Testing Library
+- Linting: ESLint with type-aware rules
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Follow these steps to run the project locally:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 1. Clone the repository
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/JiayingWu-work/token-swap.git
+cd token-swap
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Add API Key
+
+Create a .env file in the project root:
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+VITE_FUNKIT_API_KEY = Z9SZaOwpmE40KX61mUKWm5hrpGh7WHVkaTvQJpQk
 ```
+
+### 4. Run the app
+
+```bash
+npm run dev
+```
+
+Open http://localhost:5173 to view it in the browser.
+
+### 5. Run tests
+
+```bash
+npm run test
+```
+
+## Assumptions & Design Choices
+
+- Tokens are pre-filtered using a popular token list to
+  - Improve app performance by reducing the number of tokens rendered
+  - Simplify the user interface and avoid a overwhelming list of tokens
+- Default selection is the first two tokens in the list
+- USD amount input needs to be numeric and positive
+- Errors in fetching token data are displayed to the user
+- Minimalistic design to focus on functionality and usability
+
+## Deployment
+
+The app is deployed on Vercel: https://token-swap-one-sable.vercel.app/
