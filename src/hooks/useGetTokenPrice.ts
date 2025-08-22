@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getTokenInfo, getTokenPrice, type TokenPrice, type TokenInfo, type Token } from '../utils/api'
 
-
 export function useGetTokenPrice(token?: Token) {
   const infoQuery = useQuery<TokenInfo, Error>({
     queryKey: ['tokenInfo', token?.symbol],

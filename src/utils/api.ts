@@ -2,7 +2,6 @@ import {
   getAssetErc20ByChainAndSymbol,
   getAssetPriceInfo,
 } from '@funkit/api-base'
-import { POPULAR_SYMBOLS } from '../constants/tokens'
 
 /** --- Types --- */
 
@@ -13,7 +12,7 @@ export interface Token {
   address: string
 }
 
-interface RawToken {
+export interface RawToken {
   chainId: number
   address: string
   name: string
@@ -41,20 +40,12 @@ const API_KEY = import.meta.env.VITE_FUNKIT_API_KEY || ''
 
 /** --- API Wrappers --- */
 
-export async function fetchTokens(): Promise<Token[]> {
+export async function fetchTokens(): Promise<RawToken[]> {
   const res = await fetch('https://tokens.coingecko.com/uniswap/all.json')
   if (!res.ok) throw new Error('Failed to fetch tokens')
 
   const data = await res.json()
-
-  return (data.tokens as RawToken[])
-    .filter((t) => POPULAR_SYMBOLS.includes(t.symbol))
-    .map((t) => ({
-      name: t.name,
-      symbol: t.symbol,
-      chainId: t.chainId.toString(),
-      address: t.address,
-    }))
+  return data.tokens as RawToken[]
 }
 
 export async function getTokenInfo(
