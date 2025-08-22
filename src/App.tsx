@@ -1,33 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import TokenSelect from './components/TokenSelect'
 import ResultDisplay from './components/ResultDisplay'
 import { Container, Card, Title, InputGroup, Input } from './styles'
+import { useGetTokens } from './hooks/useGetTokens'
 import { useGetTokenPrice } from './hooks/useGetTokenPrice'
-
-const tokens = [
-  { name: 'USDC', chainId: '1', symbol: 'USDC' },
-  { name: 'USDT', chainId: '137', symbol: 'USDT' },
-  { name: 'ETH', chainId: '8453', symbol: 'ETH' },
-  { name: 'WBTC', chainId: '1', symbol: 'WBTC' },
-]
+import type { Token } from './utils/api'
 
 export default function App() {
   const [usdAmount, setUsdAmount] = useState('')
-  const [sourceToken, setSourceToken] = useState(tokens[0].symbol)
-  const [targetToken, setTargetToken] = useState(tokens[1].symbol)
+  const { data: tokens = [], isLoading: isTokensLoading } = useGetTokens()
+  const [sourceToken, setSourceToken] = useState<Token | undefined>()
+  const [targetToken, setTargetToken] = useState<Token | undefined>()
+
+  useEffect(() => {
+    if (tokens.length > 0 && !sourceToken && !targetToken) {
+      setSourceToken(tokens[0])
+      setTargetToken(tokens[1])
+    }
+  }, [tokens, sourceToken, targetToken])
 
   const usd = parseFloat(usdAmount) || 0
 
-  const sourceChainId =
-    tokens.find((t) => t.symbol === sourceToken)?.chainId || '1'
-  const targetChainId =
-    tokens.find((t) => t.symbol === targetToken)?.chainId || '1'
-
-  const sourceData = useGetTokenPrice(sourceToken, sourceChainId)
-  const targetData = useGetTokenPrice(targetToken, targetChainId)
+  const sourceData = useGetTokenPrice(sourceToken)
+  const targetData = useGetTokenPrice(targetToken)
 
   const sourceAmount = usd / (sourceData.priceInfo?.unitPrice || 1)
   const targetAmount = usd / (targetData.priceInfo?.unitPrice || 1)
+
+  if (isTokensLoading) return <div>Loading tokens...</div>
+  if (!sourceToken || !targetToken) return <div>No tokens available</div>
 
   return (
     <Container>
@@ -44,22 +45,26 @@ export default function App() {
         </InputGroup>
         <TokenSelect
           label="Source Token"
-          value={sourceToken}
-          onChange={setSourceToken}
+          value={sourceToken.symbol}
+          onChange={(symbol) =>
+            setSourceToken(tokens.find((t) => t.symbol === symbol))
+          }
           tokenList={tokens}
         />
         <TokenSelect
           label="Target Token"
-          value={targetToken}
-          onChange={setTargetToken}
+          value={targetToken.symbol}
+          onChange={(symbol) =>
+            setTargetToken(tokens.find((t) => t.symbol === symbol))
+          }
           tokenList={tokens}
         />
         <ResultDisplay
           usd={usd}
           sourceAmount={sourceAmount}
-          sourceToken={sourceToken}
+          sourceToken={sourceToken.symbol}
           targetAmount={targetAmount}
-          targetToken={targetToken}
+          targetToken={targetToken.symbol}
           loading={sourceData.isLoading || targetData.isLoading}
           error={sourceData.isError || targetData.isError}
         />

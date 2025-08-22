@@ -1,10 +1,5 @@
 import { InputGroup, Select } from '../styles'
-
-interface Token {
-  name: string
-  symbol: string
-  chainId: string
-}
+import type { Token } from '../utils/api'
 
 interface TokenSelectProps {
   label: string
@@ -25,7 +20,7 @@ export default function TokenSelect({
         {label}:
         <Select value={value} onChange={(e) => onChange(e.target.value)}>
           {tokenList.map((t) => (
-            <option key={t.symbol} value={t.symbol}>
+            <option key={t.address} value={t.symbol}>
               {t.name}
             </option>
           ))}
