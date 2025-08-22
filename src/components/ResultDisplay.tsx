@@ -20,7 +20,7 @@ export default function ResultDisplay({
   error = false,
 }: ResultDisplayProps) {
   if (loading) {
-    return <p>Loading prices...</p>
+    return <Result>Loading prices...</Result>
   }
 
   if (error) {
@@ -28,15 +28,21 @@ export default function ResultDisplay({
   }
 
   return (
-    <Result>
-      {usd > 0 ? (
-        <p>
-          {sourceAmount.toFixed(6)} {sourceToken} = {usd.toFixed(2)} USD ={' '}
-          {targetAmount.toFixed(6)} {targetToken}
-        </p>
+    <>
+      {usd < 0 || !Number(usd) ? (
+        <ErrorText>Please enter a positive numeric amount</ErrorText>
       ) : (
-        <p>Enter an amount in USD to see conversion</p>
+        <Result>
+          {usd > 0 ? (
+            <p>
+              {sourceAmount.toFixed(6)} {sourceToken} = {usd.toFixed(2)} USD ={' '}
+              {targetAmount.toFixed(6)} {targetToken}
+            </p>
+          ) : (
+            <p>Enter an amount in USD to see conversion</p>
+          )}
+        </Result>
       )}
-    </Result>
+    </>
   )
 }

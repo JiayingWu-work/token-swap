@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import TokenSelect from './components/TokenSelect'
 import ResultDisplay from './components/ResultDisplay'
-import { Container, InputGroup, Input } from './styles'
+import { Container, Card, Title, InputGroup, Input } from './styles'
 import { useGetTokenPrice } from './hooks/useGetTokenPrice'
 
 const tokens = [
@@ -29,48 +29,41 @@ export default function App() {
   const sourceAmount = usd / (sourceData.priceInfo?.unitPrice || 1)
   const targetAmount = usd / (targetData.priceInfo?.unitPrice || 1)
 
-  // TODO: delete me
-  console.log('sourceData: ', sourceData)
-  console.log('targetData', targetData)
-
   return (
     <Container>
-      <h1>Token Price Explorer</h1>
-
-      <InputGroup>
-        <label>
-          USD Amount:
+      <Card>
+        <Title>Token Price Explorer</Title>
+        <InputGroup>
+          <label>USD Amount</label>
           <Input
             type="number"
             value={usdAmount}
             onChange={(e) => setUsdAmount(e.target.value)}
+            placeholder="Enter USD amount"
           />
-        </label>
-      </InputGroup>
-
-      <TokenSelect
-        label="Source Token"
-        value={sourceToken}
-        onChange={setSourceToken}
-        tokenList={tokens}
-      />
-
-      <TokenSelect
-        label="Target Token"
-        value={targetToken}
-        onChange={setTargetToken}
-        tokenList={tokens}
-      />
-
-      <ResultDisplay
-        usd={usd}
-        sourceAmount={sourceAmount}
-        sourceToken={sourceToken}
-        targetAmount={targetAmount}
-        targetToken={targetToken}
-        loading={sourceData.isLoading || targetData.isLoading}
-        error={sourceData.isError || targetData.isError}
-      />
+        </InputGroup>
+        <TokenSelect
+          label="Source Token"
+          value={sourceToken}
+          onChange={setSourceToken}
+          tokenList={tokens}
+        />
+        <TokenSelect
+          label="Target Token"
+          value={targetToken}
+          onChange={setTargetToken}
+          tokenList={tokens}
+        />
+        <ResultDisplay
+          usd={usd}
+          sourceAmount={sourceAmount}
+          sourceToken={sourceToken}
+          targetAmount={targetAmount}
+          targetToken={targetToken}
+          loading={sourceData.isLoading || targetData.isLoading}
+          error={sourceData.isError || targetData.isError}
+        />
+      </Card>
     </Container>
   )
 }
