@@ -1,22 +1,10 @@
 # Token Swap App
 
-A simplified Token Swap Explorer built with React + TypeScript + Vite, allowing users to:
+A simplified Token Swap Explorer built with **React + TypeScript + Vite**, allowing users to:
 
 - Select source and target tokens from a predefined popular list
 - Input a USD amount and get live conversion
 - View the equivalent token amounts based on live API prices
-
-## Tech Stack
-
-- Framework: React + TypeScript
-- Build Tool: Vite
-- API:
-  - [@funkit/api-base](https://www.npmjs.com/package/@funkit/api-base): fetch token info and price
-  - [Coingecko Uniswap tokens list](https://tokens.coingecko.com/uniswap/all.json): fetch all tokens
-- State & Data Fetching: @tanstack/react-query
-- Styling: styled-components
-- Testing: Vitest + React Testing Library
-- Linting: ESLint with type-aware rules
 
 ## Getting Started
 
@@ -56,6 +44,18 @@ Open http://localhost:5173 to view it in the browser.
 ```bash
 npm run test
 ```
+
+## Tech Stack
+
+- **Framework: React + TypeScript:** provides a modern, type-safe approach, catches errors early and improves maintainability.
+- **Build Tool: Vite:** fast development server and optimized builds for production
+- **API:**
+  - [@funkit/api-base](https://www.npmjs.com/package/@funkit/api-base): fetch token info and price
+  - [Coingecko Uniswap tokens list](https://tokens.coingecko.com/uniswap/all.json): a comprehensive list of tokens
+- **State & Data Fetching: @tanstack/react-query:** handles asynchronous API requests, caching, and state updates seamlessly
+- **Styling: styled-components:** clean, maintainable syntax in codebase
+- **Testing: Vitest + React Testing Library:** lightweight and fast testing setup for TypeScript + React
+- **Linting: ESLint with type-aware rules:** ensures code quality and consistency, catching potential bugs early with type-checked linting rules
 
 ## Assumptions & Design Choices
 
