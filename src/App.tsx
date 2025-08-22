@@ -5,6 +5,7 @@ import { Container, Card, Title, InputGroup, Input } from './styles'
 import { useGetTokens } from './hooks/useGetTokens'
 import { useGetTokenPrice } from './hooks/useGetTokenPrice'
 import type { Token } from './utils/api'
+import Loading from './components/Loading'
 
 export default function App() {
   const [usdAmount, setUsdAmount] = useState('')
@@ -27,8 +28,7 @@ export default function App() {
   const sourceAmount = usd / (sourceData.priceInfo?.unitPrice || 1)
   const targetAmount = usd / (targetData.priceInfo?.unitPrice || 1)
 
-  if (isTokensLoading) return <div>Loading tokens...</div>
-  if (!sourceToken || !targetToken) return <div>No tokens available</div>
+  if (isTokensLoading || !sourceToken || !targetToken) return <Loading />
 
   return (
     <Container>

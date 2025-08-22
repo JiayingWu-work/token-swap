@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+import { FaHourglassHalf } from 'react-icons/fa'
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -90,4 +91,15 @@ export const ErrorText = styled.div`
   font-size: 1rem;
   font-weight: 500;
   color: #dc2626;
+`
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`
+
+export const Spinner = styled(FaHourglassHalf)`
+  animation: ${spin} 1s linear infinite;
+  font-size: 3rem;
+  color: #ffa12eff;
 `
